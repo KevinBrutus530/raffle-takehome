@@ -30,7 +30,7 @@ const RaffleHome = () => {
 
   let currentRaffles = allRaffles.map((raffle, i) => {
     return (
-      <Link key={i} to={`/raffle/${raffle.id}`}>
+      <Link key={i} to={`/raffles/${raffle.id}`}>
         <li>
           <button>
             <h3>{raffle.name}</h3>
@@ -87,7 +87,7 @@ const RaffleHome = () => {
         </form>
         <div>
           <h2>All Raffles</h2>
-          <ul style={{ listStyle: "none" }}>{currentRaffles}</ul>
+          <ul>{currentRaffles}</ul>
         </div>
       </div>
     </div>

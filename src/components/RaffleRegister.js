@@ -13,7 +13,7 @@ const RaffleRegister = () => {
   const { id } = params;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRaffle = async () => {
       try {
         let res = await axios.get(
           `https://cors-anywhere.herokuapp.com/https://raffle-fs-app.herokuapp.com/api/raffles/${id}`
@@ -23,7 +23,7 @@ const RaffleRegister = () => {
         console.log(err);
       }
     };
-    fetchData();
+    fetchRaffle();
   }, []);
   return (
     <div>
@@ -32,7 +32,9 @@ const RaffleRegister = () => {
           <button>Raffle Home</button>
         </Link>
         <button>Register</button>
-        <button>Participants</button>
+        <Link to={`/raffles/${id}/participants`}>
+          <button>Participants</button>
+        </Link>
         <button>Pick Winner</button>
       </div>
       <div>
