@@ -53,7 +53,9 @@ const RaffleRegister = () => {
         <Link to={`/raffles/${id}/participants`}>
           <button>Participants</button>
         </Link>
-        <button>Pick Winner</button>
+        <Link to={`/raffles/${id}/winner`}>
+          <button>Pick Winner</button>
+        </Link>
       </div>
       <div>
         <h3>{raffleInfo.name}</h3>
