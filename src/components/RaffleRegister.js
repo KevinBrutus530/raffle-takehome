@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useInput } from "../util/customHooks";
+import Button from "@material-ui/core/Button";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 const RaffleRegister = () => {
   const [raffleInfo, setRaffleInfo] = useState([]);
@@ -45,20 +47,8 @@ const RaffleRegister = () => {
   };
   return (
     <div>
+      <NavBar />
       <div>
-        <Link to={"/"}>
-          <button>Raffle Home</button>
-        </Link>
-        <button>Register</button>
-        <Link to={`/raffles/${id}/participants`}>
-          <button>Participants</button>
-        </Link>
-        <Link to={`/raffles/${id}/winner`}>
-          <button>Pick Winner</button>
-        </Link>
-      </div>
-      <div>
-        <h3>{raffleInfo.name}</h3>
         <form onSubmit={handleRaffleParticipant}>
           <label>
             First Name:
@@ -80,7 +70,9 @@ const RaffleRegister = () => {
             <input type="text" {...phoneNumber} />
           </label>
           <br />
-          <button type="submit">Register for Raffle</button>
+          <Button type="submit" variant="contained" color="primary">
+            Register for Raffle
+          </Button>
         </form>
       </div>
     </div>

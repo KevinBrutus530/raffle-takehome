@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useInput } from "../util/customHooks";
+import Button from "@material-ui/core/Button";
 import axios from "axios";
-import RaffleParticipants from "./RaffleParticipants";
+import NavBar from "./NavBar";
 
-// Create logic that determines if raffle's secret_token matches input
-// Create logic that shuffles raffle participants and selects a winner
 // Build component to display raffle winner
 // Finish NavBar functionality
 // STYLE STYLE STYLE!!!!
@@ -13,6 +12,7 @@ import RaffleParticipants from "./RaffleParticipants";
 const PickRaffleWinner = () => {
   const [raffleSecretToken, setRaffleSecretToken] = useState("");
   const [raffleParticipants, setRaffleParticipants] = useState([""]);
+  const [raffleWinner, setRaffleWinner] = useState({});
   const secretKey = useInput("");
   const params = useParams("/raffle/:id");
   const { id } = params;
@@ -45,44 +45,52 @@ const PickRaffleWinner = () => {
     fetchRaffleParticipants();
   }, []);
 
-  //   const shuffle = (arr) => {
-  //     for (let i = arr.length - 1; i > 0; i--) {
-  //       const j = Math.floor(Math.random() * (i + 1));
-  //       const temp = arr[i];
-  //       arr[i] = arr[j];
-  //       arr[j] = temp;
-  //     }
-  //   };
   const handleRaffleWinner = async (e) => {
     e.preventDefault();
-    // const pickWinner =
-    //   raffleParticipants[Math.floor(Math.random() * raffleParticipants.length)];
     if (secretKey.value === raffleSecretToken) {
-      debugger;
+      const correctToken = { secret_token: raffleSecretToken };
       try {
         await axios.put(
-          `https://raffle-fs-app.herokuapp.com/raffle/${id}/winner`,
-          { secret_token: secretKey.value }
+          `https://cors-anywhere.herokuapp.com/https://raffle-fs-app.herokuapp.com/api/raffles/${id}/winner`,
+          correctToken
         );
       } catch (error) {
         console.log(error);
       }
     } else {
-      debugger;
       window.alert("Key incorrect, please try again.");
     }
   };
 
+  const pickWinner = (arr) => {
+    let winner = arr[Math.floor(Math.random() * arr.length)];
+    setRaffleWinner(winner);
+    return (
+      <div>
+        <h3>
+          {winner.firstname} {winner.lastname}
+        </h3>
+        <p>{winner.id}</p>
+        <p>{winner.email}</p>
+        <p>{winner.phone}</p>
+      </div>
+    );
+  };
+
   return (
     <div>
+      <NavBar />
       <h1>Pick a Winner</h1>
       <form onSubmit={handleRaffleWinner}>
         <label>
           Secret Key:
           <input type="text" {...secretKey} required />
         </label>
-        <button type="submit">Pick Winner</button>
+        <Button type="submit" variant="contained" color="primary">
+          Pick Winner
+        </Button>
       </form>
+      {/* {pickWinner(raffleParticipants)} */}
     </div>
   );
 };

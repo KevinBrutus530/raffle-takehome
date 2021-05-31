@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 const RaffleParticipants = () => {
   const [raffleParticipants, setRaffleParticipants] = useState([]);
@@ -35,6 +36,7 @@ const RaffleParticipants = () => {
 
   return (
     <div>
+      <NavBar></NavBar>
       <h1>Raffle Participants</h1>
       <ul>{allRaffleParticipants}</ul>
     </div>
