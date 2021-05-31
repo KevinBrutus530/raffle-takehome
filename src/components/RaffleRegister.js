@@ -25,6 +25,24 @@ const RaffleRegister = () => {
     };
     fetchRaffle();
   }, []);
+
+  const handleRaffleParticipant = async (e) => {
+    e.preventDefault();
+    const newRaffleParticipant = {
+      firstname: firstName.value,
+      lastname: lastName.value,
+      email: email.value,
+      phone: phoneNumber.value,
+    };
+    try {
+      await axios.post(
+        `https://cors-anywhere.herokuapp.com/https://raffle-fs-app.herokuapp.com/api/raffles/${id}/participants`,
+        newRaffleParticipant
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div>
@@ -39,7 +57,7 @@ const RaffleRegister = () => {
       </div>
       <div>
         <h3>{raffleInfo.name}</h3>
-        <form>
+        <form onSubmit={handleRaffleParticipant}>
           <label>
             First Name:
             <input type="text" {...firstName} required />
