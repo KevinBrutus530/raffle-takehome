@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useInput } from "../util/customHooks";
-import cors from "cors";
 import axios from "axios";
 
 const RaffleHome = () => {
@@ -9,23 +8,36 @@ const RaffleHome = () => {
   const secretToken = useInput("");
   const [allRaffles, setAllRaffles] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      let res = await axios.get(
+        "https://cors-anywhere.herokuapp.com/https://raffle-fs-app.herokuapp.com/api/raffles/"
+      );
+      setAllRaffles(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let res = await axios.get(
-          "https://cors-anywhere.herokuapp.com/https://raffle-fs-app.herokuapp.com/api/raffles/"
-        );
-        setAllRaffles(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchData();
   }, []);
 
-  const handleInput = (e, setValue) => {
+  const handleRaffleSubmit = async (e) => {
     e.preventDefault();
-    setValue(e.target.value);
+    const newRaffle = {
+      name: raffleName.value,
+      secret_token: secretToken.value,
+    };
+    try {
+      await axios.post(
+        "https://cors-anywhere.herokuapp.com/https://raffle-fs-app.herokuapp.com/api/raffles/",
+        newRaffle
+      );
+      fetchData();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   let currentRaffles = allRaffles.map((raffle, i) => {
@@ -57,7 +69,7 @@ const RaffleHome = () => {
 
       <div>
         <h2>Create New Raffle:</h2>
-        <form>
+        <form onSubmit={handleRaffleSubmit}>
           <label>
             Raffle Name:
             <input
