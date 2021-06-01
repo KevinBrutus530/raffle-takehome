@@ -45,3 +45,9 @@ body {
   background-color: aqua;
   background-image: url("./assets/background.png");
 }
+
+img {
+  padding-top: 10px;
+  height: 20%;
+  width: auto;
+}

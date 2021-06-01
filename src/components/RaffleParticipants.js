@@ -47,7 +47,7 @@ const RaffleParticipants = () => {
 
   let allRaffleParticipants = raffleParticipants.map((participant, i) => {
     return (
-      <Card key={i} className={classes.root}>
+      <Card key={i} className={classes.root} style={{ marginRight: "32px" }}>
         <li>
           <h3>
             {participant.firstname} {participant.lastname}

@@ -9,7 +9,6 @@ import winnerimg from "../assets/winnerimg.png";
 
 const PickRaffleWinner = () => {
   const [raffleSecretToken, setRaffleSecretToken] = useState("");
-  const [raffleParticipants, setRaffleParticipants] = useState([""]);
   const [raffleWinner, setRaffleWinner] = useState({});
   const [isWinner, setIsWinner] = useState(false);
   const secretKey = useInput("");
@@ -50,20 +49,6 @@ const PickRaffleWinner = () => {
     };
     getWinner();
   }, [isWinner]);
-
-  useEffect(() => {
-    const fetchRaffleParticipants = async () => {
-      try {
-        let res = await axios.get(
-          `https://cors-anywhere.herokuapp.com/https://raffle-fs-app.herokuapp.com/api/raffles/${id}/participants`
-        );
-        setRaffleParticipants(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchRaffleParticipants();
-  }, []);
 
   const handleRaffleWinner = async (e) => {
     e.preventDefault();

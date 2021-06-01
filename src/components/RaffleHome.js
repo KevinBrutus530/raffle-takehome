@@ -63,7 +63,7 @@ const RaffleHome = () => {
 
   let currentRaffles = allRaffles.map((raffle, i) => {
     return (
-      <Card key={i} className={classes.root}>
+      <Card key={i} className={classes.root} style={{ marginRight: "32px" }}>
         <Link to={`/raffles/${raffle.id}`}>
           <Button>
             <li>
