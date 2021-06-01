@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Button from "@material-ui/core/Button";
 import axios from "axios";
 
 const NavBar = () => {
@@ -24,28 +23,30 @@ const NavBar = () => {
   return (
     <div>
       <h3>{raffleInfo.name}</h3>
-      <Tabs>
-        <Tab>
-          <NavLink exact to={"/"}>
-            <button>Raffle Home</button>
-          </NavLink>
-        </Tab>
-        <Tab>
-          <NavLink exact to={`/raffles/${id}/`}>
-            <button>Register</button>
-          </NavLink>
-        </Tab>
-        <Tab>
-          <NavLink to={`/raffles/${id}/participants`}>
-            <button>Participants</button>
-          </NavLink>
-        </Tab>
-        <Tab>
-          <NavLink to={`/raffles/${id}/winner`}>
-            <button>Pick Winner</button>
-          </NavLink>
-        </Tab>
-      </Tabs>
+
+      <NavLink exact to={"/"}>
+        <Button variant="contained" color="primary">
+          Raffle Home
+        </Button>
+      </NavLink>
+
+      <NavLink exact to={`/raffles/${id}/`}>
+        <Button variant="contained" color="primary">
+          Register
+        </Button>
+      </NavLink>
+
+      <NavLink to={`/raffles/${id}/participants`}>
+        <Button variant="contained" color="primary">
+          Participants
+        </Button>
+      </NavLink>
+
+      <NavLink to={`/raffles/${id}/winner`}>
+        <Button variant="contained" color="primary">
+          Pick Winner
+        </Button>
+      </NavLink>
     </div>
   );
 };
